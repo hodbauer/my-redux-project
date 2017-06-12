@@ -1,6 +1,10 @@
-/**
- * Created by kra on 6/12/2017.
- */
+var actionTypes = {
+    ADD_ITEM: 'ADD_ITEM',
+    DELETE_ITEM: 'DELETE_ITEM',
+    DELETE_ITEM_BY_INDEX: 'DELETE_ITEM_BY_INDEX',
+    RESET: 'RESET'
+};
+
 function createStore(reducer, initState){
 
     // this is our store's state
@@ -39,16 +43,16 @@ function listReducer(lastState, action){
     // create in a new variable in order to prevent sending a new object when no change happened
     var newState = JSON.parse(JSON.stringify(lastState)); // simple naive clone... better to use lodash :)
     switch(action.type){
-        case "ADD_ITEM":
+        case actionTypes.ADD_ITEM:
             newState.push(action.payload);
             break;
-        case "DELETE_ITEM":
+        case actionTypes.DELETE_ITEM:
             newState.splice(newState.indexOf(action.payload), 1);
             break;
-        case "DELETE_ITEM_BY_INDEX":
+        case actionTypes.DELETE_ITEM_BY_INDEX:
             newState.splice(action.payload, 1);
             break;
-        case "RESET":
+        case actionTypes.RESET:
             return [];
         default:
             return lastState;
@@ -75,7 +79,7 @@ function addItemButton() {
     }
 
     myStore.dispatch({
-        type: "ADD_ITEM",
+        type: actionTypes.ADD_ITEM,
         payload: payload
     });
 }
